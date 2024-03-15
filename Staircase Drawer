@@ -1,0 +1,44 @@
+#include <iostream>
+
+using namespace std;
+
+void drawRectangle(int numRows, int numCols, int offset);
+void drawRow(int numChar, int leadingSpaces);
+void drawStaircase (int numSteps, int stepSize);
+
+int main() 
+{
+  int stepNum, sizeStep;
+  cout << "Enter value for number of steps and size of steps: ";
+  cin >> stepNum >> sizeStep;
+  drawStaircase(stepNum, sizeStep);
+  return 0;
+}
+
+void drawRow(int numChar, int leadingSpaces)
+{
+  for(int i = 0; i < numChar + leadingSpaces; i ++)
+    {
+      if(i < leadingSpaces)
+        cout << " ";
+      else
+        cout << "*";
+    }
+}
+
+void drawRectangle(int numRows, int numCols, int offset)
+{
+for(int i = 0; i < numRows; i++)
+  {
+    drawRow(numCols, offset);
+    cout << endl;
+  }
+}
+
+void drawStaircase (int numSteps, int stepSize)
+{
+  for(int i = 1; i <= numSteps; i ++)
+    {
+      drawRectangle(stepSize, stepSize * 2 * i, stepSize * 2 * (numSteps - i));
+    }
+}
