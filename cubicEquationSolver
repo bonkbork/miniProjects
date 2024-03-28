@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+bool cardano(double p, double q,  double &x);
+
+int main() 
+{
+  char keepPlaying = 'y';
+  do
+    {
+      double p, q, x = 0;
+      cout << "Enter numbers for p and q: ";
+      cin >> p >> q;
+      bool sol = cardano(p, q, x);
+      if(!sol)
+      {
+        cout << "cannot determine a soluion";
+      }
+      else
+      {
+        cout << "Solution: x = " << x;
+      }
+      cout << endl;
+      cout << "Keep playing (y/n)? ";
+      cin >> keepPlaying;
+    }while(keepPlaying == 'y');
+  cout << "Bye!";
+  return 0;
+}
+
+bool cardano(double p, double q,  double &x)
+{
+  bool sol = false;
+  double determinant = (pow(q,2)/4) + (pow(p,3)/27);
+  if(determinant >= 0)
+  {
+    x = cbrt(-q/2 + sqrt(determinant)) + cbrt(-q/2 - sqrt(determinant));
+    sol = true;
+  }
+  return sol;
+}
