@@ -1,0 +1,66 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int solve(double a, double b, double c, double &x1, double &x2, double &r, double &im);
+
+int main() 
+{
+  char keepPlaying = 'y';
+  do
+    {
+      int a, b ,c;
+      cout << "Enter a, b, and c: ";
+      cin >> a >> b >> c;
+      
+      double x1 = 0, x2 = 0, r = 0, im = 0;
+      int num = solve(a, b, c, x1, x2, r, im);
+      if(num == 2)
+      {
+        cout << "Two real solutions: x1 = " << x1 << " x2 = " << x2;
+      }
+      else if(num == 1)
+      {
+        cout << "One real solution x = " << x1;
+      }
+      else
+      {
+        cout << "Two imaginary solutions..." << endl;
+        cout << "r + im = " << r << " + " << im << "*i" << endl;
+        cout << "r - im = " << r << " - " << im << "*i";
+      }
+      cout << endl;
+      cout << "Keep playing (y/n)? ";
+      cin >> keepPlaying;
+    }while(keepPlaying == 'y');
+  cout << "Bye!";
+  return 0;
+}
+
+int solve(double a, double b, double c, double &x1, double &x2, double &r, double &im)
+{
+  int sol;
+  double determinant = b*b - 4*a*c;
+  if (determinant > 0)
+  {
+    x1 = (-b + sqrt(determinant)) / (2*a);
+    x2 = (-b - sqrt(determinant)) / (2*a);
+    sol = 2;
+  }
+  if(determinant == 0)
+  {
+    x1 = -b / (2*a);
+    sol = 1;
+  }
+  if(determinant < 0)
+  {
+    sol = 0;
+    r = -b / (2*a);
+    im = sqrt(-determinant)/(2*a);
+    if(r == -0)
+      r = 0;
+  }
+    
+  return sol;
+}
