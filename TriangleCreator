@@ -1,0 +1,62 @@
+#include <iostream>
+
+using namespace std;
+
+void drawStars(int numStars);
+void drawSpaces(int numSpaces);
+void drawShape(int numRows);
+
+int main()
+{
+  int rows;
+  do
+    {
+      cout << "How many rows? (0 to quit) ";
+      cin >> rows;
+      drawShape(rows);
+    }while(rows != 0);
+  cout << "Bye!";
+}
+
+void drawStars(int numStars)
+{
+  for(int i = 0; i < numStars; i++)
+    {
+      cout << "*";
+    }
+}
+
+void drawSpaces(int numSpaces)
+{
+  for(int i = 0; i < numSpaces; i++)
+    {
+      cout << " ";
+    }
+}
+
+void drawShape(int numRows)
+{
+  if(numRows != 0)
+  {
+    int spaces = -1;
+    int topBot = (numRows * 2) - 1;
+    for(int i = numRows; i >= 0; i--)
+      {
+        if(i == numRows || i == 0)
+        {
+          drawStars(topBot);
+        }
+        else
+        {
+          drawStars(i);
+            if(i != numRows || i != 0)
+            {
+              drawSpaces(spaces);
+            }
+          drawStars(i);
+        }
+        cout << endl;
+        spaces += 2;
+      }
+  }
+}
