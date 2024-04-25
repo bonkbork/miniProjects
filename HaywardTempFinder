@@ -1,0 +1,133 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+
+using namespace std;
+
+int strToInt(string word);
+string formattedDate(string word);
+
+int main() 
+{
+  int Tmin[400], Tmax[400], Tavg[400], userInpt = 0, counter = 0, position = -2;
+  string dates[400];
+  double yearAvg = 0;
+  bool found;
+  ifstream infile("temps.txt");
+  
+  if(!infile)
+  {
+    cout << "Couldn't open file";
+  }
+  
+  while(infile)
+    {
+      counter++;
+      string data;
+      infile >> data;
+      if(counter == 7)
+      {
+        dates[position] = data;
+      }
+      else if(counter == 8)
+      {
+        Tavg[position] = strToInt(data);
+      }
+      else if(counter == 9)
+      {
+        Tmax[position] = strToInt(data);
+      }
+      else if(counter == 10)
+      {
+        Tmin[position] = strToInt(data);
+        counter = 0;
+        position ++;
+      }
+      if(counter == 6 && position < 0)
+      {
+        counter = 0;
+        position ++;
+      }
+    }
+  
+  for(int i = 0; i <= position; i++)
+    {
+      yearAvg += Tavg[i];
+    }
+   cout << "The average temperature between " << formattedDate(dates[0]) << " and " << formattedDate(dates[position-1]) <<  " was " << fixed << setprecision(2) << yearAvg / position << endl;
+  
+  cout << endl << "Here are the first ten dates and temperatures. " << endl;
+  for(int i = 0; i < 10; i++)
+    {
+      cout << dates[i] << " " << Tavg[i] << " " << Tmax[i] << " " << Tmin[i] << endl;
+    }
+  
+  cout << endl <<  "Here are the last ten dates and temperatures. " << endl;
+  for(int i = position - 10; i < position; i++)
+    {
+      cout << dates[i] << " " << Tavg[i] << " " << Tmax[i] << " " << Tmin[i] << endl;
+    }
+  
+  cout << endl;
+  
+    while(userInpt != -999)
+    {
+      cout << "Enter a temperature in Fahrenheit or -999 to quit: ";
+      cin >> userInpt;
+      found = false;
+      for(int i = 0; i < position; i++)
+        {
+          
+          if(userInpt == Tavg[i])
+          {
+            cout << userInpt << " was the average temperature on " << formattedDate(dates[i]) << "." << endl;
+            found = true;
+          }
+          
+          if(userInpt == Tmax[i])
+          {
+            cout << userInpt << " was the maximum temperature on " << formattedDate(dates[i]) << "." << endl;
+            found = true;
+          }
+          
+          if(userInpt == Tmin[i])
+          {
+            cout << userInpt << " was the minimum temperature on " << formattedDate(dates[i]) << "." << endl;
+            found = true;
+          }
+          
+        }
+      
+      if(!found && userInpt != -999)
+        cout << "Not found." << endl;
+      
+    }
+  
+  return 0;
+}
+
+int strToInt(string word)
+{
+  int conversion = 0;
+  string firstNum = word.substr(0,1);
+  string lastNum = word.substr(1,1);
+  string numChkr[10] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+  for(int i = 0; i < 10; i++)
+    {
+      if(firstNum == numChkr[i])
+      {
+        conversion = conversion + (i * 10);
+      }
+      if(lastNum == numChkr[i])
+      {
+        conversion = conversion + i;
+      }
+    }
+  return conversion;
+}
+
+string formattedDate(string word)
+{
+  return word.substr(4,2) + "/" + word.substr(6,2) + "/" + word.substr(0,4);
+}
