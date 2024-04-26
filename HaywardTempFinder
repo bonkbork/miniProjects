@@ -16,11 +16,6 @@ int main()
   bool found;
   ifstream infile("temps.txt");
   
-  if(!infile)
-  {
-    cout << "Couldn't open file";
-  }
-  
   while(infile)
     {
       counter++;
