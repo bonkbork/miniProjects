@@ -78,12 +78,20 @@ void sortWordsArray(WordPair words[], int numWords)
     }
   cout << "Finished sorting array" << endl;
 }
-/**
-* Output the contents of the words array to a file with the given fileName.
-* Each line of output should contain the original and sorted fields of the
-* corresponding array element. Close the file after all the words are output.
-**/
-void writeWordsToFile(const string& fileName, WordPair words[], int numWords);
+
+void writeWordsToFile(const string& fileName, WordPair words[], int numWords)
+{
+    ofstream outfile (fileName);
+    for(int i = 0; i < numWords; i++)
+    {
+           outfile << words[i].original << " " << words[i].sorted;
+      if(i != numWords-1)
+        outfile << endl;
+    }
+  cout << "Finished writing file " << fileName << endl;
+  outfile.close();
+}
+
 int main()
 {
 static WordPair words[MAXWORDS]; // To store the words. (Keyword static needed due to the large array size.)
