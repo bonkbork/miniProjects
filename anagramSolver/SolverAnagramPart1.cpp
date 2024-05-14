@@ -57,16 +57,7 @@ bool readOriginalWords(const string &fileName, WordPair words[],int &numWords) {
 
   return true;
 }
-/*
-* Use selection sort to sort the array words in ascending order.
-* To compare elements, use the sorted field of each element:
-* If words[i].sorted > words[j].sorted evaluates to true
-* then words[i] and words[j] are out of order. Since the function
-* may take several minutes, your code should also output the messages
-* "5% sorted." "10% sorted." etc. every time i is an exact multiple of 10000,
-* where i is the outer loop variable.
-* (Use 100*i/numWords to get the percent.)
-*/
+
 void sortWordsArray(WordPair words[], int numWords)
 {
     for(int i = 0; i < numWords; i++)
@@ -80,7 +71,12 @@ void sortWordsArray(WordPair words[], int numWords)
             }
         }
         swap(words[i],words[minIndex]);
+        if(i % 5 == 0)
+        {
+            cout << 100*i/numWords << "% sorted." << endl;
+        }
     }
+  cout << "Finished sorting array" << endl;
 }
 /**
 * Output the contents of the words array to a file with the given fileName.
