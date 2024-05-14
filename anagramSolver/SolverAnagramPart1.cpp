@@ -16,28 +16,23 @@ string sortWord(string w)
   int length = w.length();
   string wArray[length], sortedW;
 
-  for (int i = 0; i < length; i++) 
-  {
+  for (int i = 0; i < length; i++) {
     wArray[i] = w.substr(i, 1);
   }
 
-  for (int i = 0; i < length; i++) 
-  {
+  for (int i = 0; i < length; i++) {
     int minIndex = i;
-    for (int k = i + 1; k < length; k++) 
-    {
-      if (wArray[minIndex] > wArray[k]) 
-      {
+    for (int k = i + 1; k < length; k++) {
+      if (wArray[minIndex] > wArray[k]) {
         minIndex = k;
-        swap(wArray[minIndex], wArray[i]);
       }
     }
+    swap(wArray[i],wArray[minIndex]);
   }
 
   for (int i = 0; i < length; i++) {
     sortedW += wArray[i];
   }
-
   return sortedW;
 }
 
@@ -73,7 +68,21 @@ bool readOriginalWords(const string &fileName, WordPair words[],int &numWords)
 * where i is the outer loop variable.
 * (Use 100*i/numWords to get the percent.)
 */
-void sortWordsArray(WordPair words[], int numWords);
+void sortWordsArray(WordPair words[], int numWords)
+{
+    for(int i = 0; i < numWords; i++)
+    {
+        minIndex = i;
+        for(int k = i + 1; k < numWords; k++)
+        {
+            if(words[minIndex].sorted > words[k].sorted )
+            {
+                minIndex = k;
+            }
+        }
+        swap(words[i],words[minIndex]);
+    }
+}
 /**
 * Output the contents of the words array to a file with the given fileName.
 * Each line of output should contain the original and sorted fields of the
