@@ -72,7 +72,7 @@ void sortWordsArray(WordPair words[], int numWords)
 {
     for(int i = 0; i < numWords; i++)
     {
-        minIndex = i;
+        int minIndex = i;
         for(int k = i + 1; k < numWords; k++)
         {
             if(words[minIndex].sorted > words[k].sorted )
