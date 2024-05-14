@@ -71,12 +71,12 @@ void sortWordsArray(WordPair words[], int numWords)
             }
         }
         swap(words[i],words[minIndex]);
-        if(i % 5 == 0)
+        if(i % 10000 == 0)
         {
             cout << 100*i/numWords << "% sorted." << endl;
         }
     }
-  cout << "Finished sorting array" << endl;
+  cout << "Finished sorting array." << endl;
 }
 
 void writeWordsToFile(const string& fileName, WordPair words[], int numWords)
@@ -88,16 +88,19 @@ void writeWordsToFile(const string& fileName, WordPair words[], int numWords)
       if(i != numWords-1)
         outfile << endl;
     }
-  cout << "Finished writing file " << fileName << endl;
+  cout << "Finished writing file " << fileName << "." << endl;
   outfile.close();
 }
-
 int main()
 {
 static WordPair words[MAXWORDS]; // To store the words. (Keyword static needed due to the large array size.)
 int numberOfWords; // To store the number of words read in.
 string inputFileName, outputFileName; // To store the file names.
 // get file names from the user.
+cout << "What is the input file name? ";
+cin >> inputFileName;
+cout << "What is the output file name? ";
+cin >> outputFileName;
 // Call helper function readOriginalWords. If the return value is false,
 // output message "Unable to open input file."
 if (!readOriginalWords(inputFileName, words, numberOfWords)) {
@@ -105,6 +108,12 @@ cout << "Unable to open input file." << endl;
 }
 // If the return value from readOriginalWords is true, tell the user
 // how many words were read in, then call sortWords.
+else if(readOriginalWords(inputFileName, words, numberOfWords))
+{
+    cout << numberOfWords << " were read from the input file." << endl;
+    sortWordsArray(words,numberOfWords);
+    writeWordsToFile(outputFileName, words, numberOfWords);
+}
 // Upon return from sortWords, output the message "Finished sorting array."
 // Next call writeWordsToFile with the given outputFileName.
 // Upon return from writeWordsToFile outpu a message of the form
