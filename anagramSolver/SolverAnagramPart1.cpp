@@ -37,17 +37,17 @@ string sortWord(string w)
 }
 
 bool readOriginalWords(const string &fileName, WordPair words[],int &numWords) {
-  int counter = -1;
+  int counter = 0;
   ifstream infile(fileName);
   if (!infile)
     return false;
   else {
     string currentWord;
-    while (infile) {
-      counter++;
-      infile >> currentWord;
+    while (infile >> currentWord) 
+    {      
       words[counter].original = currentWord;
       words[counter].sorted = sortWord(currentWord);
+      counter++;
     }
   }
 
