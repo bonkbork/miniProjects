@@ -36,19 +36,18 @@ string sortWord(string w)
   return sortedW;
 }
 
-bool readOriginalWords(const string &fileName, WordPair words[],int &numWords) 
-{
-  int counter = 0;
+bool readOriginalWords(const string &fileName, WordPair words[],int &numWords) {
+  int counter = -1;
   ifstream infile(fileName);
   if (!infile)
     return false;
   else {
     string currentWord;
     while (infile) {
+      counter++;
       infile >> currentWord;
       words[counter].original = currentWord;
       words[counter].sorted = sortWord(currentWord);
-      counter++;
     }
   }
 
