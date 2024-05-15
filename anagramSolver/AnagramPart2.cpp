@@ -1,4 +1,4 @@
-#include <string>
+     #include <string>
 #include <iostream>
 #include <fstream>
 
@@ -97,23 +97,24 @@ string sortWord(string w);
 * parameter numwords. Return true.
 **/
 bool readWords(WordPair words[], int& numWords, string fileName);
-/**
-* Return
-* Call binarySearch with sortWord(originalWord) as the target.
-* The parameter first is used to store the return value.
-* If first is -1 then no matches were found so return 0.
-* Otherwise, first represents the index of a matching word
-* but perhaps not the index of the first matching word among
-* the sequence of words with the same sorted field.
-* That means it's necessary to decrement first until we get to the first match.
-* For example, if first is initially 5 and words[4] has the same sorted field
-* as words[5], then we need decrement first to 4. If words[3] again has the
-* same sorted field we need to decrement first again and so on.
-* Next count the number of matches found by setting a local variable numMatches
-* to 1, then incrementing it as long as words[first + numMatches] has the
-* same sorted field. Return numMatches.
-**/
-int getMatches(WordPair words[], int numWords, string originalWord, int& first);
+
+int getMatches(WordPair words[], int numWords, string originalWord, int& first)
+{
+    first = binarySearch(words, numWords, sortWord(originalWord));
+    int numMatches = 1;
+    if(first == -1)
+    return 0;
+    while(words[first].sorted == words[first - numMatches].sorted)
+    {
+        numMatches++;
+    }
+    while(words[first].sorted == words[first + numMatches].sorted)
+    {
+        numMatches++;
+    }
+    return numMatches;
+}
+
 int main()
 {
 static WordPair words[MAXWORDS]; // To hold the words.
