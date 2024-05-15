@@ -104,17 +104,27 @@ int getMatches(WordPair words[], int numWords, string originalWord, int& first)
     int numMatches = 1;
     if(first == -1)
     return 0;
-    while(words[first].sorted == words[first - numMatches].sorted)
+    else
     {
-        numMatches++;
+        if(words[first].sorted == words[first - numMatches].sorted)
+        {
+            while(words[first].sorted == words[first - numMatches].sorted)
+                {
+                    numMatches++;
+                }
+                first = first - numMatches;
+        }
+        else if(words[first].sorted == words[first + numMatches].sorted)
+        {
+            while(words[first].sorted == words[first + numMatches].sorted)
+                {
+                    numMatches++;
+                }
+        }
     }
-    while(words[first].sorted == words[first + numMatches].sorted)
-    {
-        numMatches++;
-    }
+    
     return numMatches;
 }
-
 int main()
 {
 static WordPair words[MAXWORDS]; // To hold the words.
