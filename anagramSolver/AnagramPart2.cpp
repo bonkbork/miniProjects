@@ -107,15 +107,27 @@ string sortWord(string w)
   return sortedW;
 }
 
-/**
-* Open the file with the given fileName for input.
-* If the file didn't open succesfully, return false.
-* Otherwise, read each pair of strings from the file
-* into the original and sorted fields of each element of
-* the words array. Record the total number of pairs in
-* parameter numwords. Return true.
-**/
-bool readWords(WordPair words[], int& numWords, string fileName);
+bool readWords(WordPair words[], int& numWords, string fileName)
+{
+  int counter = -1;
+  ifstream infile(fileName);
+  if(!infile)
+    return false;
+  else
+  {
+      while(infile)
+      {
+          counter ++;
+          string currentWord;
+          infile >> currentWord;
+          words[counter].original = currentWord;
+          infile >> currentWord;
+          words[counter].sorted = currentWord;
+      }
+  }
+  numWords = counter;
+  return true;
+}
 
 int getMatches(WordPair words[], int numWords, string originalWord, int& first)
 {
