@@ -81,13 +81,32 @@ int binarySearch(WordPair words[], int numWords, string target)
     }
     return -1;
 }
-/**
-* Sort w alphabetically by letter using selection sort.
-* For example, if w is initially "hello" then after being sorted
-* w will be "ehllo". Return w. For a full description see
-* AnagramPart1.
-**/
-string sortWord(string w);
+
+string sortWord(string w) 
+{
+  int length = w.length();
+  string wArray[length], sortedW;
+
+  for (int i = 0; i < length; i++) {
+    wArray[i] = w.substr(i, 1);
+  }
+
+  for (int i = 0; i < length; i++) {
+    int minIndex = i;
+    for (int k = i + 1; k < length; k++) {
+      if (wArray[minIndex] > wArray[k]) {
+        minIndex = k;
+      }
+    }
+    swap(wArray[i],wArray[minIndex]);
+  }
+
+  for (int i = 0; i < length; i++) {
+    sortedW += wArray[i];
+  }
+  return sortedW;
+}
+
 /**
 * Open the file with the given fileName for input.
 * If the file didn't open succesfully, return false.
