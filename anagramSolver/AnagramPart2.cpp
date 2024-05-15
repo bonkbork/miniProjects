@@ -66,14 +66,21 @@ void printMatches(WordPair words[], int numWords, string target);
 * maxMatches anagrammatic forms. (See last line of sample output).
 **/
 void getStats(WordPair words[], int numWords);
-/**
-* Use binary search (Gaddis Section 8.1) to find the target string.
-* target is assumed to be the sorted version of a word e.g. "ehllo"
-* rather than "hello". In comparing two array elements for ==, > or <
-* use the sorted field, eg. if (words[middle].sorted > target)
-* Return the index of target or -1 if not found.
-**/
-int binarySearch(WordPair words[], int numWords, string target);
+int binarySearch(WordPair words[], int numWords, string target)
+{
+    int low = 0;
+    while(low <= numWords)
+    {
+        int mid = low + (numWords-low)/2;
+        if(words[mid] == target)
+        return mid;
+        else if(words[mid] > target)
+        low = mid + 1;
+        else
+        numWords = mid - 1;
+    }
+    return -1;
+}
 /**
 * Sort w alphabetically by letter using selection sort.
 * For example, if w is initially "hello" then after being sorted
