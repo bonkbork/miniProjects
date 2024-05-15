@@ -72,9 +72,9 @@ int binarySearch(WordPair words[], int numWords, string target)
     while(low <= numWords)
     {
         int mid = low + (numWords-low)/2;
-        if(words[mid] == target)
+        if(words[mid].sorted == target)
         return mid;
-        else if(words[mid] > target)
+        else if(words[mid].sorted > target)
         low = mid + 1;
         else
         numWords = mid - 1;
