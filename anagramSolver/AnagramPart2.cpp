@@ -10,20 +10,23 @@ struct WordPair {
 string original, sorted;
 };
 const int MAXWORDS = 200000; // maximum number of words
-/**
-* Print words that are anagrams for the target string.
-* Here is a sample output where the target string is "tra"
-* 3 matches were found. art rat tar.
-* Here is a sample output where the target string is "abcde"
-* 0 matches were found.
-* How to code it:
-* Declare local variables firstIndex and numberFound of type int.
-* Call getMatches with words, numWords, target and firstIndex as the four arguments
-* and assign the result of getMatches to numberFound.
-* Output the number of matches that were found, e.g. "3 matches were found."
-* Then, use a for-loop to output each match (if numberFound is bigger than 0).
-**/
-void printMatches(WordPair words[], int numWords, string target);
+
+void printMatches(WordPair words[], int numWords, string target)
+{
+    int firstIndex, numberFound;
+    numberFound = getMatches(words, numWords, target, firstIndex);
+    cout << numberFound << " matches were found.";
+    if(numberFound > 0)
+    for(int i = firstIndex; i <= firstIndex + numberFound; i++)
+    {
+        cout << " " << words[i].original;
+    }
+
+    cout << endl;
+
+
+}
+
 /**
 * Output the number of anagramatic forms found for each word.
 * That means count the number of words that have just one anagrammatic form
