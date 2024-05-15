@@ -27,48 +27,29 @@ void printMatches(WordPair words[], int numWords, string target)
 
 }
 
-/**
-* Output the number of anagramatic forms found for each word.
-* That means count the number of words that have just one anagrammatic form
-* e.g. "hello", two anagrammatic forms e.g. "cat" and "act", three anagrammatic forms
-* e.g. "rat", "art" , "tar" and so on. For the file words.txt the output should be...
-* Found 164883 words with 1 angramatic form.
-* Found 22862 words with 2 angramatic forms.
-* Found 6981 words with 3 angramatic forms.
-* Found 2720 words with 4 angramatic forms.
-* Found 1170 words with 5 angramatic forms.
-* Found 534 words with 6 angramatic forms.
-* Found 357 words with 7 angramatic forms.
-* Found 96 words with 8 angramatic forms.
-* Found 72 words with 9 angramatic forms.
-* Found 30 words with 10 angramatic forms.
-* Found 11 words with 11 angramatic forms.
-* Found 24 words with 12 angramatic forms.
-* The string aerst has 12 anagrams.
-*
-* Notice the last line also tells you a certain string of sorted letters
-* has the most anagrammatic forms, which happens to be 12.
-*
-* How to code it:
-* Declare an int array counts of size 25, initialized to zeros.
-* Declare variables numMatches, firstIndex, maxMatches and indexOfMax,
-* all of type int. Initialize maxMatches and indexOfMax to 0.
-* Use a for-loop to traverse the words array (either
-* going from i = 0 to numWords-1 or from numWords-1 to 0).
-* Within the loop body, call getMatches and
-* assign the result to numMatches. Increment the element of
-* countArray at index numMatches (since we found another word
-* with numMatches anagrammatic forms). Also, compare numMatches and
-* maxMatches to see which one is bigger. If numMatches is bigger,
-* then update maxMatches and update indexOfMatch appropriately,
-* to record the fact that a bigger number of matches was found at index i.
-* After the for-loop, loop through the counts array and output the
-* a line saying how many words were found for the elements of
-* counts that are nonzero. (See the sample output above.)
-* Also output the fact that words[indexOfMax].sorted has
-* maxMatches anagrammatic forms. (See last line of sample output).
-**/
-void getStats(WordPair words[], int numWords);
+void getStats(WordPair words[], int numWords)
+{
+    int count[25] = { }, numMatches, firstIndex, maxMatches = 0, indexOfMax = 0;
+    for(int i = 0; i < numWords; i++)
+    {
+        numMatches = getMatches(words, numWords, words[i].sorted, firstIndex);
+        count[numMatches] ++;
+        if(numMatches > maxMatches)
+        {
+        maxMatches = numMatches;
+        indexOfMax = i;
+        }
+    }
+    for(int i = 1; i <= i + maxMatches; i++)
+    {
+        cout << "Found " << count[i] << " words with " << i << " angramatic form." << endl;
+    }
+
+    cout << "The string " << words[indexOfMax] << " has " << maxMatches << " anagrams." << endl;
+
+}
+
+
 int binarySearch(WordPair words[], int numWords, string target)
 {
     int low = 0;
