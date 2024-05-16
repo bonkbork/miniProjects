@@ -34,9 +34,9 @@ void getStats(WordPair words[], int numWords)
     int count[25] = {0}, numMatches, firstIndex, maxMatches = 0, indexOfMax = 0;
     for(int i = 0; i < numWords; i++)
     {
-        numMatches = getMatches(words, numWords, words[i].sorted, firstIndex);
+        numMatches = getMatches(words, numWords, words[i].original, firstIndex);
         count[numMatches] ++;
-        if(numMatches > maxMatches)
+        if(numMatches >= maxMatches)
         {
         maxMatches = numMatches;
         indexOfMax = i;
@@ -51,23 +51,25 @@ void getStats(WordPair words[], int numWords)
 
 }
 
-int binarySearch(WordPair words[], int numWords, string target)
+int binarySearch(WordPair words[], int numWords, string target) //most likely the problem
 {
     int low = 0;
-    while(low < numWords)
+  numWords --;
+    while(low <= numWords)
     {
-        int mid = low + (numWords-low)/2;
-        if(words[mid].sorted == target)
+      int mid = low + (numWords-low)/2;
+       if(words[mid].sorted == target){
         return mid;
+        }
         else if(words[mid].sorted < target)
         low = mid + 1;
-        else
+        else if(words[mid].sorted > target)
         numWords = mid - 1;
     }
     return -1;
 }
 
-string sortWord(string w) 
+string sortWord(string w) //this is fine
 {
   int length = w.length();
   string wArray[length], sortedW;
@@ -92,9 +94,9 @@ string sortWord(string w)
   return sortedW;
 }
 
-bool readWords(WordPair words[], int& numWords, string fileName)
+bool readWords(WordPair words[], int& numWords, string fileName) //this is fine
 {
-    int counter = 0;
+    int counter = -1;
     ifstream infile(fileName);
     if(!infile)
     return false;
@@ -102,12 +104,12 @@ bool readWords(WordPair words[], int& numWords, string fileName)
     {
         while(infile)
         {
+          counter++;
             string currentWord;
             infile >> currentWord;
             words[counter].original = currentWord;
             infile >> currentWord;
             words[counter].sorted = currentWord;
-            counter++;
         }
     }
     numWords = counter;
@@ -117,6 +119,7 @@ bool readWords(WordPair words[], int& numWords, string fileName)
 int getMatches(WordPair words[], int numWords, string originalWord, int& first)
 {
     first = binarySearch(words, numWords, sortWord(originalWord));
+  
     int numMatches = 1;
     if(first == -1)
     {
@@ -124,6 +127,14 @@ int getMatches(WordPair words[], int numWords, string originalWord, int& first)
     }
     else
     {
+      int i = numMatches;
+       if(first < numWords &&words[first].sorted == words[first + numMatches].sorted)
+        {
+            while(words[first].sorted == words[first + i].sorted)
+                {
+                    i++;
+                }
+        }
         if(first > 0 && words[first].sorted == words[first - numMatches].sorted)
         {
             while(words[first].sorted == words[first - numMatches].sorted)
@@ -131,14 +142,9 @@ int getMatches(WordPair words[], int numWords, string originalWord, int& first)
                     numMatches++;
                 }
                 first = first - numMatches;
+          first++;
         }
-        else if(first < numWords &&words[first].sorted == words[first + numMatches].sorted)
-        {
-            while(words[first].sorted == words[first + numMatches].sorted)
-                {
-                    numMatches++;
-                }
-        }
+      numMatches = numMatches + i - 1;
     }
 
     return numMatches;
@@ -162,25 +168,24 @@ else
     string userInput = "l";
     cout << "Opened file successfully." << endl;
     getStats(words, numWords);
-    do
+  // int first;
+  //  cout << "Index of aster is " << binarySearch(words, numWords, "aerst") << endl;
+  //  cout << getMatches(words, numWords, "aerst", first) << " at the point " << first << endl;
+  // printMatches(words, numWords, "aerst");
+  
+  do
     {
         cout << "Please enter a scrambled word or q to quit: ";
         cin >> userInput;
         if(userInput != "q")
         {
-            int firstIndex;
-            int matches = getMatches(words, numWords, userInput, firstIndex);
-            cout << matches << " matches were found:";
-            for(int i = firstIndex; i < firstIndex + matches; i++)
-            {
-                cout << " " << words[i].original;
-            }
-            cout << endl;
+          printMatches(words, numWords, userInput);
         }
     }while(userInput != "q");
-}
+ }
+  
 // Next call getStats to print the counts.
 // Finally unscramble words until the user decides to quit.
 // See the sample output in the instructions as a guide.
-cout << "Bye." << endl;
+  cout << "Bye." << endl;
 }
