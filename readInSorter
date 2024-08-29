@@ -1,0 +1,75 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+void bubbleSort(int array[], int size)
+{
+  int maxElement, index;
+  for(maxElement = size-1; maxElement > 0; maxElement--)
+    {
+      for(index = 0; index < maxElement; index++)
+        {
+          if(array[index] > array[index+1])
+            swap(array[index],array[index+1]);
+        }
+    }
+}
+
+int main() { 
+  const int SIZE = 10000;
+  string inputFileName, outputFileName;
+  ifstream infile;
+  ofstream outfile;
+  int values[SIZE];
+  cout << "What is the file name? ";
+  cin >> inputFileName;
+  infile.open(inputFileName);
+  int counter = 0;
+  if(!infile)
+  {
+    cout << "Cant open file." << endl;
+  }
+  else
+  {
+    int n;
+    cout << "File opened" << endl;
+    infile >> n;
+    while(infile && counter < SIZE)
+      {
+        values[counter++] = n;
+        infile >> n;
+      }
+  }
+
+  infile.close();
+
+  bubbleSort(values, counter);
+  outfile.open(inputFileName);
+    for(int i = 0; i < counter; i++)
+      {
+        outfile << values[i] << endl;
+      }
+  outfile.close();
+
+  int strNum = inputFileName.length();
+  inputFileName = inputFileName.substr(0,strNum-4);
+  string desc = "Descending.txt";
+  inputFileName = inputFileName + desc;
+
+  
+  outfile.open(inputFileName);
+  if(!outfile)
+  {
+    cout << "Could not open file!" << endl;
+  }
+  else{
+    for(int i = counter - 1; i >= 0; i--)
+      {
+        outfile << values[i] << endl;
+      }
+  }
+  outfile.close();
+  return 0;
+}
