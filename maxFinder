@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+int getIndexOfMax(int nums[], int length)
+{
+    int maxIndex = 0;
+    for(int i = 1; i < length; i++)
+    {
+        if(nums[maxIndex] < nums[i])
+        {
+            maxIndex = i;
+        }
+    }
+    return maxIndex;
+}
+
+void sort(int nums[], int length)
+{
+    int maxIndex;
+    for(int i = 0; i < length; i++)
+    {
+        maxIndex = getIndexOfMax(nums, (length - i));
+        swap(nums[maxIndex],nums[length - (i+1)]);
+    }
+}
+
+int main()
+{
+    int arr[] = {4,2,5,1,6,15,4,1,9};
+    cout << getIndexOfMax(arr, 9) << endl;
+    sort(arr, 9);
+    for(int i = 0; i < 9; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    
+    return 0;
+}
