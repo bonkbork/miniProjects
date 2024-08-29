@@ -1,0 +1,34 @@
+#include <iostream>
+#include <array>
+
+using namespace std;
+
+int findIt(int b[], int first, int last, int t);
+
+int main() 
+{ 
+  
+  int arr[7] = {2,6,8,7,6,2,9};
+  int num = findIt(arr, 0, 6, 8);
+  cout << num;
+}
+
+int findIt(int b[], int first, int last, int t)
+{
+  int i = 0;
+  while(first + i <= last - i)
+    {
+      if(b[first + i] == t)
+      {
+        return first + i;
+      }
+      if(b[last - i] == t)
+      {
+        return last - i;
+      }
+      i++;
+    }
+
+
+  return -1;
+}
