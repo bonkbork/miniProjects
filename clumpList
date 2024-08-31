@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+
+
+struct Element {
+    int index;
+    int value;
+};
+
+void printArrayViaClumpList(Element clumpList[], int numClumps) {
+  int lastIndex = 0; 
+  bool firstPass = true;
+  cout << "{ ";
+  for(int i = 0; i < numClumps;i++)
+     {
+       if(firstPass)
+          {
+            cout << clumpList[i].value << " ";
+            firstPass = false;
+          }
+         for(int j = 0; j < clumpList[i].index - lastIndex;j++)
+         {
+           cout << clumpList[i].value << " ";
+         }
+       lastIndex = clumpList[i].index;
+       }
+  cout << "}" << endl;
+}
+
+// print the clumplist in format {(0,0), (3,1), (6,2) ,(7,3), (14,4)}
+void printClumpList(Element clumpList[], int numClumps) {
+  cout << "{";
+    for(int i = 0; i < numClumps; i++)
+      {
+        cout << "(" << clumpList[i].index << "," << clumpList[i].value << ")";
+        if(numClumps - 1 != i)
+        {
+          cout << ", ";
+        }
+      }
+  cout << "}" << endl;
+}
+
+// just print the array e.g. { 0 1 2 2 3 3 3 }
+void printArray(int nums[], int length) {
+  cout << "{ ";
+  for(int i = 0; i < length; i++)
+    {
+      cout << nums[i] << " ";
+    }
+  cout << "}" << endl;
+}
+
+int main()
+{
+   const int SIZE = 15;
+   int nums[] = {0, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 4, 4, 4 };
+   printArray(nums, SIZE);
+
+    Element clumpList[SIZE] = {{0,0}, {3,1}, {6,2} ,{7,3}, {14,4}}; // index means last index of the clump.
+    int clumpCount = 5;
+    printClumpList(clumpList, clumpCount);
+    printArrayViaClumpList(clumpList, clumpCount);
+    return 0;
+}
