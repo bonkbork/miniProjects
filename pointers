@@ -1,0 +1,30 @@
+#include <iostream>
+
+using namespace std;
+
+void swapIt(int *p, int *q)
+{
+    int temp = *p;
+    *p = *q;
+    *q = temp;
+}
+
+int main()
+{
+    int myArray[8] = {1,2,3,4,5,6,7,8};
+    int *p = &(myArray[3]); 
+    *p = 100;
+    for(int i = 0; i < 8; i++)
+    {
+        cout << myArray[i] << endl;
+    }
+    /*
+    int n = 5;
+    int *p = &n;
+    cout << "The address of n is " << p << endl;
+    int m = 6;
+    swapIt(&m,&n);
+    cout << m << " " << n << endl;
+    */
+    return 0;
+}
