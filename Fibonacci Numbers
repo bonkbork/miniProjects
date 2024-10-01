@@ -1,0 +1,36 @@
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+
+int fib3(int a, int b, int n)
+{
+    if(n == 0)
+    return a;
+    else
+    return fib3(b, a + b, n - 1);
+}
+
+
+int fib(int n)
+{
+    return fib3(0,1,n);
+}
+
+
+
+int main()
+{
+    int i = 0;
+    while(i >= 0)
+    {
+        cout << "Enter any positive integer: ";
+        cin >> i;
+        if(i > -1)
+        {
+            int n = clock();
+            cout << "Fibonacii of " << i << " is " << fib(i) << endl << clock() - n << " microS" << endl;;
+        }
+    }
+    return 0;
+}
