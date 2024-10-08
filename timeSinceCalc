@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+
+void getLocalTime(unsigned int seconds, int utcOffset, int &h, int &m, int &s)
+{
+    s = seconds % 60;
+    m = (seconds/60) % 60;
+    h = ((seconds / 3600) + utcOffset) % 24;
+}
+
+int main()
+{
+    int hours = 0;
+    int minutes = 0;
+    int seconds = 0;
+    getLocalTime(time(0), -7, hours, minutes, seconds);
+    cout << hours << ":" << minutes << ":" << seconds << endl;
+    return 0;
+}
