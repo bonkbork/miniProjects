@@ -1,0 +1,26 @@
+#include <iostream>
+
+using namespace std;
+
+void swap(int *p, int *q)
+{
+    int temp = *p;
+    *p = *q;
+    *q = temp;
+}
+
+int main()
+{
+    int x = 5;
+    int y = 8;
+    int *r = &x;
+    int *z = &y;
+    cout << *r;
+    cout << *z << endl;
+    
+    swap(r, z);
+    cout << *r;
+    cout << *z;
+
+    return 0;
+}
