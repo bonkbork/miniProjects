@@ -1,0 +1,37 @@
+class Counter{
+    public:
+    void increment();
+    void decrement();
+    int getValue();
+    
+    Counter(int x, int y)
+    {
+        counter = x;
+        limit = y;
+    }
+    
+    private:
+    int counter, limit;
+};
+
+void Counter::increment()
+{
+    if(counter < limit)
+    {
+        counter++;
+    }
+}
+
+void Counter::decrement()
+{
+    if(counter > 0)
+    {
+        counter--;
+    }
+}
+
+int Counter::getValue()
+{
+    return counter;
+}
+
